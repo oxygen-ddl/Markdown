@@ -221,3 +221,80 @@ CART算法：Classification and Regression Trees
 
 集成学习的方法-生成多个模型进行判断，随机森林为集成学习的一种
 ## 知识矢量积
+
+
+# 第九次课
+## MP模型（人工神经元模型）的提出
+1943年美国生理学家W.S Mcculloch和数学家W.A Pitts在论文《A Logical Calculus of the Ideas Immanent in Nervous Activity》中首次提出了二值神经元模型
+## “人工神经元模型——MP模型”与感知机perceptron 模型
+![alt text](image-3.png)
+
+激活函数（研究重点），阈值，激活
+## 写出“人工神经元模型——MP模型”的数学表达式
+![alt text](image-4.png)
+## MP模型（人工神经元模型）能干啥（过早做了二值化处理导致能力弱化）
+异或运算为非线性运算
+## 逻辑与或运算的理解，以及MP模型作为分类器使用的可能性理解
+**MP模型的公式主体是：**
+$$
+y_j = f\left( \sum_{i=1}^{n} w_{ij} \cdot x_i + (-\theta) \right)
+$$
+## 激活函数（Active Function）
+最简单的处理：
+
+输出1 或者0；(step函数)
+
+变化为区间内的S型（或其他）
+
+- sigmoid
+$$
+    f(x) = \frac{1}{1+e^{-x}}
+$$
+- Tanh双曲正切函数
+$$
+    f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+$$
+- ReLu函数 Rectified Linear Unit
+$$
+    f(x) = \max(0,x)
+$$
+## 神经网络——感知器
+![alt text](image-5.png)
+单感知器模型左右向绘图
+![alt text](image-6.png)
+多感知器组成神经网络上下向绘图
+### 感知器与MP模型有啥不同呢？
+- MP模型的【权向量】是预先设置的；
+- 感知器模型的【权向量】是可以通过**学习**得到的:
+- 感知器通过：监督学习样本进行训练，能够误差修正 得到合适的连接权值参数wij。从而实现了不需要人为干预自动寻找到权值。
+### 学习机制
+- 为了得到可接受的权向量，感知器法则是从随机的权值开始——>然后反复地对每一个训练样例应用这个感知器——>感知器误分类样例时修改感知器的权值。
+MP模型与感知器模型也没差多少，当时MP怎么就没想到【权向量】的训练方法呢？
+组成神经网络的时候，权向量矩阵的更新更多用到“梯度下降法”
+“梯度下降法”需要用到求导；
+## 神经网络——BP神经网络
+Back Propagation Neural Network
+最主要创新在于跨越了“误差传递”的障碍，可以全面更新【权向量矩阵】
+计算机不是求导，而是试探并迭代
+**反向误差传播**
+![alt text](image-7.png)
+
+# 第十节课
+## 使用KERAS构建MNIST
+```python
+from tensorflow.keras.datasets import mnist
+(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+from tensorflow import keras
+from tensorflow.keras import layers
+```
+softmax作为激活函数，具有排他性     
+
+## 回归问题
+# 第十一次课
+![alt text](image-8.png)
+梯度消失和梯度爆炸问题
+- 缓解不稳定梯度问题的方法——初始化
+- 缓解不稳定梯度问题的方法——更好的激活函数
+- 缓解不稳定梯度问题的方法——用Keras实现批量归一化
+- 缓解不稳定梯度问题的方法——梯度裁剪
+- 重用预训练层——KERAS实现迁移学习
